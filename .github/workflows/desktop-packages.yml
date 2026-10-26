@@ -1,0 +1,122 @@
+name: Desktop packages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, 'upgrade/**']
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: desktop-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - run: python -m unittest discover -s tests -v
+      - name: Check generated command launcher
+        run: |
+          python scripts/make-launcher.py
+          git diff --exit-code -- from.cmd
+
+  packages:
+    needs: verify
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-2022
+            label: Windows-x64
+            architecture: x64
+          - os: macos-15-intel
+            label: macOS-Intel
+            architecture: x64
+          - os: macos-15
+            label: macOS-AppleSilicon
+            architecture: arm64
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          architecture: ${{ matrix.architecture }}
+          cache: pip
+      - name: Install build dependencies
+        run: python -m pip install -r requirements-build.txt
+      - name: Test command installer
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./scripts/test-cli.ps1
+      - name: Install .NET for MSI tooling
+        if: runner.os == 'Windows'
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Install WiX and NSIS
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          dotnet tool install --global wix --version 4.0.6
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          wix extension add --global WixToolset.UI.wixext/4.0.6
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          choco install nsis --yes --no-progress
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Build application and native packages
+        run: python scripts/build.py --installers
+      - name: Check Windows application outside its installation directory
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $binary = Join-Path $PWD 'dist/ChimpiCode/ChimpiCode.exe'
+          $report = Join-Path $PWD 'release/runtime-check.json'
+          $process = Start-Process -FilePath $binary -ArgumentList @('--gui-smoke', $report) -WorkingDirectory $env:TEMP -Wait -PassThru
+          if ($process.ExitCode -ne 0 -or !(Test-Path $report)) { throw 'Packaged GUI failed' }
+          Get-Content $report
+      - name: Check macOS application outside the source directory
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          binary="$PWD/dist/ChimpiCode.app/Contents/MacOS/ChimpiCode"
+          report="$PWD/release/runtime-check.json"
+          cd "$RUNNER_TEMP"
+          "$binary" --gui-smoke "$report"
+          test -f "$report"
+          cat "$report"
+      - name: Verify installer lifecycle on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./scripts/test-install.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ChimpiCode-1.1.0-${{ matrix.label }}
+          path: release/*
+          if-no-files-found: error
+          retention-days: 30
+
+  preview:
+    needs: packages
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/upgrade/')
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: packages
+      - name: Publish tested preview packages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/publish-preview.py

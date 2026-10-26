@@ -3,7 +3,13 @@ __pycache__/
 build/
 dist/
 *.spec
+!packaging/ChimpiCode.spec
 chimpi_build.*
 ChimpiApp.app/
 .DS_Store
 venv/
+release/
+.venv/
+.chimpicode/
+packages/
+publish/
