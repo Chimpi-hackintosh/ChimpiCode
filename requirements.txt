@@ -1,2 +1,3 @@
-customtkinter
-requests
+customtkinter>=5.2.2,<6
+requests>=2.32.3,<3
+pillow>=10.4,<13
