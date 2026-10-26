@@ -68,7 +68,7 @@ def write_wxs(staging, output, name="ChimpiCode", version="1.0.0", language="en"
     shortcuts = element(folder, "Component", Id="StartMenuShortcuts", Guid=str(uuid.uuid5(UPGRADE_NAMESPACE, name + "/shortcuts")), Bitness="always64")
     element(shortcuts, "Shortcut", Id="StartMenuShortcut", Name=name, Target=f"[#{exe_id}]", WorkingDirectory="INSTALLFOLDER")
     element(shortcuts, "RemoveFolder", Id="RemoveStartMenuFolder", On="uninstall")
-    element(shortcuts, "RegistryValue", Root="HKLM", Key=f"Software\\SnoopyOS Company\\{name}",
+    element(shortcuts, "RegistryValue", Root="HKCU", Key=f"Software\\SnoopyOS Company\\{name}",
             Name="Installed", Type="integer", Value="1", KeyPath="yes")
     feature = element(product, "Feature", Id="MainFeature", Title=name, Level="1", AllowAbsent="no")
     if name == "ChimpiCode" and (staging / "from.cmd").is_file():
@@ -84,7 +84,7 @@ def write_wxs(staging, output, name="ChimpiCode", version="1.0.0", language="en"
     desktop = element(product, "StandardDirectory", Id="DesktopFolder")
     desktop_component = element(desktop, "Component", Id="DesktopShortcutComponent", Guid=str(uuid.uuid5(UPGRADE_NAMESPACE, name + "/desktop")), Bitness="always64")
     element(desktop_component, "Shortcut", Id="DesktopShortcut", Name=name, Target=f"[#{exe_id}]", WorkingDirectory="INSTALLFOLDER")
-    element(desktop_component, "RegistryValue", Root="HKLM", Key=f"Software\\SnoopyOS Company\\{name}",
+    element(desktop_component, "RegistryValue", Root="HKCU", Key=f"Software\\SnoopyOS Company\\{name}",
             Name="DesktopShortcut", Type="integer", Value="1", KeyPath="yes")
     extra = element(product, "Feature", Id="DesktopFeature", Title="Atalho na área de trabalho" if pt else "Desktop shortcut", Level="2")
     element(extra, "ComponentRef", Id="DesktopShortcutComponent")
