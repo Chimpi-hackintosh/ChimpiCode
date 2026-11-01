@@ -121,3 +121,7 @@ Nas branches `upgrade/**`, publica uma prévia versionada em Releases somente qu
 ## Licença
 
 MIT — Copyright (c) 2026 ChimpiCode — veja [LICENSE](LICENSE)
+
+## Aviso de suporte
+
+Aviso traduzido, data de 04/11/2026, versões e limites de distribuição em [SUPPORT.md](SUPPORT.md)

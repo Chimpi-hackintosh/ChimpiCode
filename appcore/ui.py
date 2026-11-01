@@ -8,6 +8,7 @@ from tkinter import filedialog, messagebox, simpledialog
 import customtkinter as ctk
 import requests
 
+from support_notice import attach_tk
 from . import VERSION
 from .builds import BuildError, build_and_run, export_python, native_target
 from .i18n import Translator
@@ -108,6 +109,7 @@ class ChimpiCode(ctk.CTk):
         self.set_text('print("Hello from ChimpiCode")\n')
         self.refresh_files()
         self.after(60, self.poll)
+        attach_tk(self, "ChimpiCode", VERSION)
 
     def set_text(self, value):
         self.editor.delete("1.0", "end")
