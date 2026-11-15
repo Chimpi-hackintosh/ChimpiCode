@@ -10,7 +10,7 @@ O texto explica o risco de falhas sem afirmar que o usuário ou o aplicativo já
 
 | Aplicativo | Versão publicada conferida em 15/11/2026 | Mínima |
 | --- | --- | --- |
-| ChimpiCode | [v1.1.0-preview.18](https://github.com/Chimpi-hackintosh/ChimpiCode/releases/tag/v1.1.0-preview.18) — prévia | 1.1.0-preview.18 |
+| ChimpiCode | [v1.1.0-preview.21](https://github.com/Chimpi-hackintosh/ChimpiCode/releases/tag/v1.1.0-preview.21) — prévia | 1.1.0-preview.21 |
 
 ## Comportamento
 
