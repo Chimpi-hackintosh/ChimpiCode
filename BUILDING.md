@@ -9,9 +9,9 @@ O ChimpiCode mantém Python + CustomTkinter e inclui o runtime do Python no apli
 3. Aguarde os jobs Windows, macOS Intel e macOS Apple Silicon
 4. Abra a execução e baixe os arquivos em **Artifacts**
 
-O workflow também executa automaticamente ao enviar commits para `main` ou uma branch `upgrade/**`
+O workflow executa automaticamente ao enviar commits para `main` ou uma branch `upgrade/**`, mas esses pushes apenas compilam e guardam artefatos — não publicam Releases
 
-Em branches `upgrade/**`, a etapa final publica os pacotes aprovados como uma prévia `v1.1.0-preview.<execução>` em Releases — o comando `from` obtém o instalador dessa prévia sem precisar de WinGet ou login no GitHub
+Para publicar uma prévia, o proprietário deve abrir **Actions → Desktop packages → Run workflow** e marcar explicitamente `publish_preview=true` — a opção vem desmarcada por padrão. Sem essa confirmação, o job de publicação é ignorado
 
 | Artefato | Conteúdo |
 | --- | --- |
