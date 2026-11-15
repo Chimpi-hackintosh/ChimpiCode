@@ -116,7 +116,7 @@ python -m unittest discover -s tests -v
 
 O workflow compila em Windows/macOS e verifica abertura dos bundles, instalação/atualização/desinstalação Windows e preservação das configurações — consulte os relatórios incluídos em cada artefato
 
-Nas branches `upgrade/**`, publica uma prévia versionada em Releases somente quando os três builds nativos e suas verificações terminam com sucesso
+Nas branches `upgrade/**`, os pushes apenas compilam e guardam artefatos. Uma prévia versionada em Releases exige execução manual de **Desktop packages** com `publish_preview=true`, desmarcado por padrão
 
 ## Licença
 
