@@ -8,9 +8,9 @@ Antes dessa data o aviso informa que o suporte está prestes a terminar — depo
 
 O texto explica o risco de falhas sem afirmar que o usuário ou o aplicativo já foi infectado
 
-| Aplicativo | Versão publicada conferida em 02/11/2026 | Mínima |
+| Aplicativo | Versão publicada conferida em 15/11/2026 | Mínima |
 | --- | --- | --- |
-| ChimpiCode | v1.1.0-preview.3 — prévia | 1.1.0 |
+| ChimpiCode | [v1.1.0-preview.11](https://github.com/Chimpi-hackintosh/ChimpiCode/releases/tag/v1.1.0-preview.11) — prévia | 1.1.0-preview.11 |
 
 ## Comportamento
 
@@ -20,6 +20,8 @@ O texto explica o risco de falhas sem afirmar que o usuário ou o aplicativo já
 - Não envia arquivos, prompts, senhas, dados de hardware ou dados NFC
 - Mostra a versão instalada e a mínima, com opções de atualizar, ver a tabela ou deixar para depois
 - Abre a página oficial e preserva a decisão de baixar e instalar com o usuário
+
+A prévia `v1.1.0-preview.11` foi publicada em 13/11/2026 e inclui instalador EXE, MSI e pacotes macOS; o digest SHA-256 do instalador Windows foi conferido nos metadados oficiais da Release
 
 A tabela pública fica em [Apps e suporte](https://chimpi-hackintosh.github.io/ChimpiBlender-Online/support.html) depois que o PR do site for integrado e o Pages for publicado
 
