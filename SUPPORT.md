@@ -10,7 +10,7 @@ O texto explica o risco de falhas sem afirmar que o usuário ou o aplicativo já
 
 | Aplicativo | Versão publicada conferida em 15/11/2026 | Mínima |
 | --- | --- | --- |
-| ChimpiCode | [v1.1.0-preview.12](https://github.com/Chimpi-hackintosh/ChimpiCode/releases/tag/v1.1.0-preview.12) — prévia | 1.1.0-preview.12 |
+| ChimpiCode | [v1.1.0-preview.15](https://github.com/Chimpi-hackintosh/ChimpiCode/releases/tag/v1.1.0-preview.15) — prévia | 1.1.0-preview.15 |
 
 ## Comportamento
 
@@ -21,7 +21,7 @@ O texto explica o risco de falhas sem afirmar que o usuário ou o aplicativo já
 - Mostra a versão instalada e a mínima, com opções de atualizar, ver a tabela ou deixar para depois
 - Abre a página oficial e preserva a decisão de baixar e instalar com o usuário
 
-A prévia `v1.1.0-preview.12` foi publicada em 15/11/2026 às 13:27 UTC e inclui instalador EXE, MSI e pacotes macOS; o digest SHA-256 do instalador `ChimpiCode-1.1.0-x64-Setup.exe` é `sha256:b4232899ef1eaeebb119c1c19889e8611cb8629d7fdb136b268c35b6aa63ae15`
+A prévia `v1.1.0-preview.15` foi publicada em 15/11/2026 às 13:56:56 UTC e inclui instalador EXE, MSI e pacotes macOS; o digest SHA-256 do instalador `ChimpiCode-1.1.0-x64-Setup.exe` é `sha256:6dfa2dae247b8c6a5212475ad4cda852f903faebf9e4eef1e4ce10b8d51e16c7`
 
 A tabela pública fica em [Apps e suporte](https://chimpi-hackintosh.github.io/ChimpiBlender-Online/support.html) depois que o PR do site for integrado e o Pages for publicado
 
