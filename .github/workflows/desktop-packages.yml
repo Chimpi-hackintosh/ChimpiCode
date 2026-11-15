@@ -2,6 +2,12 @@ name: Desktop packages
 
 on:
   workflow_dispatch:
+    inputs:
+      publish_preview:
+        description: Publicar uma prévia em Releases após todos os builds passarem
+        type: boolean
+        required: true
+        default: false
   push:
     branches: [main, 'upgrade/**']
     tags: ['v*']
@@ -107,7 +113,7 @@ jobs:
 
   preview:
     needs: packages
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/upgrade/') && !contains(github.event.head_commit.message, '[no-release]')
+    if: github.event_name == 'workflow_dispatch' && inputs.publish_preview == true
     runs-on: ubuntu-24.04
     permissions:
       contents: write
